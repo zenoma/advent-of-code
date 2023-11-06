@@ -1,5 +1,6 @@
-f = open("input.txt", "r")
-data = f.read().split("\n")
+from aocd import get_data
+
+data = get_data(day=1, year=2021).split('\n')
 numbers = [int(x) for x in data]
 
 
@@ -15,7 +16,7 @@ def part_two():
     acc = 0
     window = 3
 
-    for i in range(len(numbers) - window ):
+    for i in range(len(numbers) - window):
         window_sum, next_window_sum = 0, 0
         for window_it in range(window):
             window_sum += numbers[window_it + i]
