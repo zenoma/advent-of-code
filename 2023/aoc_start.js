@@ -14,7 +14,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const indexPath = path.join(__dirname, `/src/day-${dayNumber}`, "index.js");
-console.log(indexPath);
 
 if (!existsSync(indexPath)) {
   console.error(`No index.js found for day ${dayNumber}.`);

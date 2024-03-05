@@ -6,40 +6,40 @@ const parseInput = (input) => input.trim().split("\r\n");
 const input = parseInput(readInputFile("day-01/input.txt"));
 
 // Part 1 solution function
-const part1 = (input) => {
-  return input;
-};
+function part1(input) {
+  return "";
+}
 
 // Part 2 solution function
-const part2 = (input) => {
+function part2(input) {
   return;
-};
+}
 
 // Test for part 1
 const part1Test = {
-  input: ``,
-  result: "",
-  expected: "-",
+  input: "",
+  expected: "",
 };
 
 // Test for part 2
 const part2Test = {
   input: ``,
-  result: "",
   expected: "",
 };
 
 // Run function to run a single test
-const runTest = (test) => {
+const runTest = (test, func) => {
   const colors = {
     reset: "\x1b[0m",
     green: "\x1b[32m",
     red: "\x1b[31m",
   };
 
+  const result = func(test.input);
+
   console.log("Expected:", test.expected);
-  console.log("Result:", test.result);
-  if (test.result === test.expected) {
+  console.log("Result:", result);
+  if (result === test.expected) {
     console.log(colors.green + "Passed: Yes" + colors.reset);
   } else {
     console.log(colors.red + "Passed: No" + colors.reset);
@@ -49,14 +49,14 @@ const runTest = (test) => {
 
 // Run test for part 1
 console.log("Running test for part 1:");
-runTest(part1Test);
+runTest(part1Test, part1);
 
 // Run test for part 2
 console.log("Running test for part 2:");
-runTest(part2Test);
+runTest(part2Test, part2);
 
 // Execute part 1
-part1(input);
+console.log("Solution part 1:", part1(input));
 
-// Execute part 2
-part1(input);
+// Execute part 1
+console.log("Solution part 2:", part2(input));
