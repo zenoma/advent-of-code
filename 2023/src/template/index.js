@@ -35,7 +35,7 @@ const runTest = (test, func) => {
     red: "\x1b[31m",
   };
 
-  const result = func(test.input);
+  const result = func(parseInput(test.input));
 
   console.log("Expected:", test.expected);
   console.log("Result:", result);
