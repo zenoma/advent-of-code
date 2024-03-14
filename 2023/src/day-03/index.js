@@ -3,7 +3,7 @@ import { readInputFile } from "../utils/fileUtils.js";
 // Function to parse the raw input, you can customize it according to your input format
 const parseInput = (input) => input.trim().split("\r\n");
 
-const input = parseInput(readInputFile("day-00/input.txt"));
+const input = parseInput(readInputFile("day-03/input.txt"));
 
 // Part 1 solution function
 function part1(input) {
