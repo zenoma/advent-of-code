@@ -64,7 +64,36 @@ function part1(input) {
 
 // Part 2 solution function
 function part2(input) {
-  return;
+  let sum = 0;
+  let totalRed = 1,
+    totalGreen = 1,
+    totalBlue = 1;
+
+  for (let i = 0; i < input.length; i++) {
+    const game = input[i]["data"];
+    const sets = game.flatMap((entry) =>
+      entry.split(",").map((item) => item.trim()),
+    );
+    for (const set of sets) {
+      const draw = set.split(",").map((item) => item.trim().split(" "))[0];
+      let [count, color] = draw;
+      if (color === "red") {
+        totalRed = Math.max(totalRed, parseInt(count));
+      }
+      if (color === "green") {
+        totalGreen = Math.max(totalGreen, parseInt(count));
+      }
+      if (color === "blue") {
+        totalBlue = Math.max(totalBlue, parseInt(count));
+      }
+    }
+    sum += totalRed * totalGreen * totalBlue;
+
+    totalRed = 1;
+    totalGreen = 1;
+    totalBlue = 1;
+  }
+  return sum;
 }
 
 // Test for part 1
@@ -118,5 +147,5 @@ runTest(part2Test, part2);
 // Execute part 1
 console.log("Solution part 1:", part1(input));
 
-// // Execute part 1
-// console.log("Solution part 2:", part2(input));
+// Execute part 1
+console.log("Solution part 2:", part2(input));
