@@ -18,7 +18,6 @@ function isPartNumber(input, number, i, j) {
   const symbols = ["*", "+", "#", "$", "/", "=", "-", "&", "@", "%"];
 
   for (let k = 0; k < number.length; k++) {
-    const numChar = number[k];
     for (let xOffset = -1; xOffset <= 1; xOffset++) {
       for (let yOffset = -1; yOffset <= 1; yOffset++) {
         const row = i + Math.floor(k / 3) + xOffset;
@@ -41,10 +40,6 @@ function isPartNumber(input, number, i, j) {
   return false; // Return false if no symbol is found adjacent to any character of the number
 }
 
-// (i-1, j-1)  (i-1, j)  (i+1, j+1)
-// (i  , j-1)  (i  , j)  (i  , j+1)
-// (i+1, j-1)  (i+1, j)  (i+1, j+1)
-
 // Part 1 solution function
 function part1(input) {
   const rows = input.length;
@@ -62,7 +57,6 @@ function part1(input) {
         }
         j += number.length;
       }
-      // const number = getHoleNumber(input, i, j);
     }
   }
 
@@ -72,9 +66,68 @@ function part1(input) {
   return sum;
 }
 
+// (i-1, j-1)  (i-1, j)  (i+1, j+1)
+// (i  , j-1)  (i  , j)  (i  , j+1)
+// (i+1, j-1)  (i+1, j)  (i+1, j+1)
+
 // Part 2 solution function
 function part2(input) {
-  return;
+  const rows = input.length;
+  const cols = input[0].length;
+  const partNumbers = [];
+  let sum = 0;
+
+  // Función para verificar si un carácter es un número
+  const isNumber = (char) => !isNaN(parseInt(char));
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (input[i][j] === "*") {
+        const gearNumbers = [];
+        // Buscar en las 8 posiciones adyacentes
+        for (let di = -1; di <= 1; di++) {
+          for (let dj = -1; dj <= 1; dj++) {
+            // Evitar la posición del '*'
+            if (!(di === 0 && dj === 0)) {
+              const ni = i + di;
+              const nj = j + dj;
+              // Verificar si la posición está dentro de los límites
+              if (ni >= 0 && ni < rows && nj >= 0 && nj < cols) {
+                const char = input[ni][nj];
+                // Si el caracter es un número, buscar el número completo al que pertenece
+                if (isNumber(char)) {
+                  let number = char;
+                  // Buscar hacia la izquierda
+                  for (let k = nj - 1; k >= 0 && isNumber(input[ni][k]); k--) {
+                    number = input[ni][k] + number;
+                  }
+                  // Buscar hacia la derecha
+                  for (
+                    let k = nj + 1;
+                    k < cols && isNumber(input[ni][k]);
+                    k++
+                  ) {
+                    number += input[ni][k];
+                  }
+                  if (!gearNumbers.includes(parseInt(number))) {
+                    gearNumbers.push(parseInt(number));
+                  }
+                }
+              }
+            }
+          }
+        }
+        if (gearNumbers.length == 2) {
+          partNumbers.push(gearNumbers[0] * gearNumbers[1]);
+        }
+      }
+    }
+  }
+
+  for (let i = 0; i < partNumbers.length; i++) {
+    sum += parseInt(partNumbers[i]);
+  }
+  return sum;
 }
 
 // Test for part 1
@@ -104,7 +157,7 @@ const part2Test = {
 ......755.
 ...$.*....
 .664.598..`,
-  expected: "",
+  expected: 467835,
 };
 
 // Run function to run a single test
@@ -132,11 +185,11 @@ console.log("Running test for part 1:");
 runTest(part1Test, part1);
 
 // Run test for part 2
-// console.log("Running test for part 2:");
-// runTest(part2Test, part2);
+console.log("Running test for part 2:");
+runTest(part2Test, part2);
 
 // Execute part 1
 console.log("Solution part 1:", part1(input));
 
 // Execute part 1
-// console.log("Solution part 2:", part2(input));
+console.log("Solution part 2:", part2(input));
