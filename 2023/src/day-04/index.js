@@ -7,19 +7,20 @@ const input = parseInput(readInputFile("day-04/input.txt"));
 
 // Part 1 solution function
 function part1(input) {
-  let acc = 0
+  let acc = 0;
   for (let i = 0; i < input.length; i++) {
-    const cardString = input[i].split(":")[1]
+    const cardString = input[i].split(":")[1];
     const splitIndex = cardString.indexOf("|");
     const winningPart = cardString.substring(0, splitIndex).trim();
     const cardPart = cardString.substring(splitIndex + 1).trim();
     const winningNumbers = winningPart.split(/\s+/).map(Number);
     const cardNumbers = cardPart.split(/\s+/).map(Number);
-    const winning = cardNumbers.filter(number => winningNumbers.includes(number))
+    const winning = cardNumbers.filter((number) =>
+      winningNumbers.includes(number),
+    );
     if (winning.length > 0) {
-      acc += (2 ** (winning.length - 1))
+      acc += 2 ** (winning.length - 1);
     }
-
   }
   return acc;
 }
@@ -28,7 +29,6 @@ function part1(input) {
 function part2(input) {
   return;
 }
-
 
 // Test for part 1
 const part1Test = {
@@ -43,8 +43,13 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11`,
 
 // Test for part 2
 const part2Test = {
-  input: ``,
-  expected: "",
+  input: `Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
+Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
+Card 3: 1 21 53 59 44 | 69 82 63 72 16 21 14  1
+Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
+Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
+Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11`,
+  expected: 30,
 };
 
 // Run function to run a single test
